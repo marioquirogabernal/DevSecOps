@@ -23,19 +23,19 @@ jobs:
 
       - name: "Verificar paquete"
         run: ls -ltra target
+
   depchecktest:
     runs-on: ubuntu-latest
     name: depecheck_test
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
       - name: "Instalacion Java"
         uses: actions/setup-java@v3
         with:
           distribution: "temurin"
           java-version: "17"
-      - name: "Set JAVA_HOME"
-        run: echo "JAVA_HOME=$(echo ${{ steps.setup-java.outputs.java-home }})" >> $GITHUB_ENV
+
       - name: "Compilation"
         run: ./mvnw clean install
       - name: Depcheck
