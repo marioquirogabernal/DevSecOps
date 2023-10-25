@@ -34,6 +34,8 @@ jobs:
         with:
           distribution: "temurin"
           java-version: "17"
+      - name: "Set JAVA_HOME"
+        run: echo "JAVA_HOME=$(echo ${{ steps.setup-java.outputs.java-home }})" >> $GITHUB_ENV
       - name: "Compilation"
         run: ./mvnw clean install
       - name: Depcheck
