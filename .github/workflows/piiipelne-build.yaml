@@ -40,6 +40,8 @@ jobs:
         run: ./mvnw clean install
       - name: Depcheck
         uses: dependency-check/Dependency-Check_Action@main
+        env: 
+          JAVA-HOME: /opt/jdk/
         id: Depcheck
         with:
           project: 'test'
