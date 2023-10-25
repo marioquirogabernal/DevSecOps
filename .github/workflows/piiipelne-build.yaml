@@ -1,6 +1,6 @@
 name: GOAT Compile
 
-on: 
+on:
   push:
     branches:
       - main
@@ -9,40 +9,35 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: "obteniendo ultima version del codigo"
+      - name: "Obteniendo la última versión del código"
         uses: actions/checkout@v3
       
-      - name: "Instalacion Java"
-        uses: actions/setup-java@v3
+      - name: "Instalando Java"
+        uses: actions/setup-java@v2
         with:
-          distribution: "temurin"
-          java-version: "17"
-
-      - name: "Compilation"
+          java-version: 17
+      
+      - name: "Compilación"
         run: ./mvnw clean install
 
-      - name: "Verificar paquete"
+      - name: "Verificando el paquete"
         run: ls -ltra target
 
   depchecktest:
     runs-on: ubuntu-latest
-    name: depecheck_test
+    name: Depcheck Test
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-      - name: "Instalacion Java"
-        uses: actions/setup-java@v3
+      - name: "Instalando Java"
+        uses: actions/setup-java@v2
         with:
-          distribution: "temurin"
-          java-version: "17"
+          java-version: 17
 
-      - name: "Compilation"
+      - name: "Compilación"
         run: ./mvnw clean install
       - name: Depcheck
         uses: dependency-check/Dependency-Check_Action@main
-        env: 
-          JAVA_HOME: /opt/jdk/
-        id: Depcheck
         with:
           project: 'test'
           path: '.'
@@ -51,8 +46,10 @@ jobs:
           args: >
             --failOnCVSS 7
             --enableRetired
-      - name: Upload Test results
+      - name: "Subir resultados de la prueba"
         uses: actions/upload-artifact@master
         with:
-           name: Depcheck report
-           path: ${{github.workspace}}/reports
+          name: Depcheck report
+          path: ${{github.workspace}}/reports
+
+
