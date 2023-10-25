@@ -11,17 +11,17 @@ jobs:
     steps:
       - run: echo "pase de construcción"
 
-test:
-  run-on: ubuntu-latest
-  steps:
-    - run: echo "Fase de pruebas"
+  test:
+    run-on: ubuntu-latest
+    steps:
+      - run: echo "Fase de pruebas"
+ 
+  qa:
+    run-on: ubuntu-latest
+    steps:
+      - run: echo "Fase de QA"
 
-qa:
-  run-on: ubuntu-latest
-  steps:
-    - run: echo "Fase de QA"
-
-prod:
-  run-on: ubuntu-latest
-  steps:
-    - run: echo "Fase de producción"
+  prod:
+    run-on: ubuntu-latest
+    steps:
+      - run: echo "Fase de producción"
