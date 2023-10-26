@@ -57,4 +57,4 @@ jobs:
           mv docker-compose /usr/local/bin
           docker run -d -p 80:80 --name my-apache-php-app -v "$PWD":/var/www/html php:7.2-apache
           docker build -t prueba
-          docker images
+          docker image ls
