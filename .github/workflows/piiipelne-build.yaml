@@ -48,14 +48,16 @@ jobs:
 
       #- name:   "Horusec reporte"
       #  run: horusec start -p="./" --return-error="false"
-      
-      - name: "Dockerfile"
+
+      - name: Setup Docker
+        uses: docker/setup-action@v1
+
+      - name: Build and run Docker containers
         run: |
-          service docker start
-          sudo docker --version
-          curl -L " https://github.com/docker/compose/releases/download/v2.16.0/docker-compose-$(uname -s)-$(uname -m)" -o docker-compose
+          docker --version
+          curl -L "https://github.com/docker/compose/releases/download/v2.16.0/docker-compose-$(uname -s)-$(uname -m)" -o docker-compose
           chmod +x docker-compose
           mv docker-compose /usr/local/bin
           docker run -d -p 80:80 --name my-apache-php-app -v "$PWD":/var/www/html php:7.2-apache
           docker build -t prueba
-          docker images
+          docker image
