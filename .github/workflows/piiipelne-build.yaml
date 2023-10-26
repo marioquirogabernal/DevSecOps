@@ -46,12 +46,11 @@ jobs:
       - name: "Horusec"
         run: curl -fsSL https://raw.githubusercontent.com/ZupIT/horusec/main/deployments/scripts/install.sh | bash -s latest-beta
 
-      - name:   "Horusec reporte"
-        run: horusec start -p="./" --return-error="false"
+      #- name:   "Horusec reporte"
+      #  run: horusec start -p="./" --return-error="false"
       
       - name: "Dockerfile"
         run: |
-          sudo apt install docker.io
           service docker start
           sudo docker --version
           curl -L " https://github.com/docker/compose/releases/download/v2.16.0/docker-compose-$(uname -s)-$(uname -m)" -o docker-compose
