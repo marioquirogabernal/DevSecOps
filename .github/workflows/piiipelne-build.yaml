@@ -6,50 +6,45 @@ on:
       - main
 
 jobs:
-  build:
+  integration:
     runs-on: ubuntu-latest
+    permissions:
+      security-events: write
+      actions: read
+      contents: read
+
     steps:
-      - name: "Obteniendo la última versión del código"
+      - name: "Obteniendo ultima version del codigo"
         uses: actions/checkout@v3
-      
-      - name: "Instalando Java"
-        uses: actions/setup-java@v2
+
+      - name: "Instalacion Java"
+        uses: actions/setup-java@v3
         with:
-          java-version: 17
-      
-      - name: "Compilación"
+          distribution: "temurin"
+          java-version: "17"
+
+      - name: "Compilacion"
         run: ./mvnw clean install
 
-      - name: "Verificando el paquete"
+      - name: "Verificar paquete"
         run: ls -ltra target
 
-  depchecktest:
-    runs-on: ubuntu-latest
-    name: Depcheck Test
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-      - name: "Instalando Java"
-        uses: actions/setup-java@v2
-        with:
-          java-version: 17
-
-      - name: "Compilación"
-        run: ./mvnw clean install
-      - name: Depcheck
+      - name: "Dependency Check"
         uses: dependency-check/Dependency-Check_Action@main
+        env:
+          JAVA_HOME: /opt/jdk
+        id: Depcheck
         with:
-          project: 'test'
+          project: 'WebGoat'
           path: '.'
           format: 'HTML'
-          out: 'reports' # this is the default, no need to specify unless you wish to override it
-          args: >
-            --failOnCVSS 7
-            --enableRetired
-      - name: "Subir resultados de la prueba"
-        uses: actions/upload-artifact@master
-        with:
-          name: Depcheck report
-          path: ${{github.workspace}}/reports
+          out: 'reports'
 
+      - name: "Verificar reporte"
+        run: ls -ltra reports
+      
+      - name: "Horusec"
+        run: curl -fsSL https://raw.githubusercontent.com/ZupIT/horusec/main/deployments/scripts/install.sh | bash -s latest-beta
 
+      - name:   "Horusec reporte"
+        run: horusec start -p="./" --return-error true
