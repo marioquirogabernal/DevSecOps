@@ -54,4 +54,4 @@ jobs:
           docker build -f Dockerfile -t prueba .
           docker image ls
           docker run -d -p 80:80 --name my-apache-php-app -v "$PWD":/var/www/html prueba
-          docker conteiner ls
+          docker container ls
