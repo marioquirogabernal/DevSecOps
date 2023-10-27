@@ -64,7 +64,7 @@ jobs:
       #   trivy webgoat:latest
 
       - name: Trivy scan
-        uses: aquasecurity/trivy-action@v2
+        uses: aquasecurity/trivy-action@master
         with:
           image-ref: 'docker.io/webgoat:latest'
           format: 'table'
