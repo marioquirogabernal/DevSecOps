@@ -49,10 +49,22 @@ jobs:
       #- name:   "Horusec reporte"
       #  run: horusec start -p="./" --return-error="false"
 
-      - name: Build and run Docker containers
+      - name: Trivy report
         run: |
-          docker build -f Dockerfile -t prueba .
           docker image ls
+          trivy webgoat
+
+      - name: Build Docker containers
+        run: |
+          docker build -f Dockerfile -t webgoat .
+          docker image ls
+
+      - name: Trivy report
+        run: |
+          trivy webgoat
+
+      - name: Run docker
+        run: |
           docker run -d -p 127.0.0.1:80:80 --name webgoat -v "$PWD":/var/www/html webgoat
           docker container ls
           docker container stop webgoat
