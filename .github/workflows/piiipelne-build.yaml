@@ -54,14 +54,24 @@ jobs:
           docker build -f Dockerfile -t webgoat .
           docker image ls
       
-      - name: Install Trivy
-        run: |
-          wget https://github.com/aquasecurity/trivy/releases/download/v0.18.3/trivy_0.18.3_Linux-64bit.deb
-          sudo dpkg -i trivy_0.18.3_Linux-64bit.deb
+      #- name: Install Trivy
+      #  run: |
+      #    wget https://github.com/aquasecurity/trivy/releases/download/v0.18.3/trivy_0.18.3_Linux-64bit.deb
+      #    sudo dpkg -i trivy_0.18.3_Linux-64bit.deb
 
-      - name: Trivy report
-        run: |
-          trivy webgoat:latest
+      #- name: Trivy report
+      #  run: |
+      #   trivy webgoat:latest
+
+      - name: Trivy scan
+          uses: aquasecurity/trivy-action@v2
+          with:
+            image-ref: 'docker.io/webgoat:latest'
+            format: 'table'
+            exit-code: '1'
+            ignore-unfixed: true
+            vuln-type: 'os,library'
+            severity: 'CRITICAL,HIGH'
 
       - name: Run docker
         run: |
