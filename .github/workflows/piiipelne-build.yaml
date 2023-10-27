@@ -53,5 +53,7 @@ jobs:
         run: |
           docker build -f Dockerfile -t prueba .
           docker image ls
-          docker run -d -p 80:80 --name my-apache-php-app -v "$PWD":/var/www/html prueba
+          docker run -d -p 127.0.0.1:80:80 --name webgoat -v "$PWD":/var/www/html webgoat
           docker container ls
+          docker container stop webgoat
+          docker container rm webgoat
