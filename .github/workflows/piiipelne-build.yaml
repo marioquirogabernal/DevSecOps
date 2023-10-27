@@ -49,11 +49,6 @@ jobs:
       #- name:   "Horusec reporte"
       #  run: horusec start -p="./" --return-error="false"
 
-      - name: Trivy report
-        run: |
-          docker image ls
-          trivy webgoat
-
       - name: Build Docker containers
         run: |
           docker build -f Dockerfile -t webgoat .
