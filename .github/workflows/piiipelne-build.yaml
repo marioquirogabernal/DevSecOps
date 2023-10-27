@@ -64,14 +64,14 @@ jobs:
       #   trivy webgoat:latest
 
       - name: Trivy scan
-          uses: aquasecurity/trivy-action@v2
-          with:
-            image-ref: 'docker.io/webgoat:latest'
-            format: 'table'
-            exit-code: '1'
-            ignore-unfixed: true
-            vuln-type: 'os,library'
-            severity: 'CRITICAL,HIGH'
+        uses: aquasecurity/trivy-action@v2
+        with:
+          image-ref: 'docker.io/webgoat:latest'
+          format: 'table'
+          exit-code: '1'
+          ignore-unfixed: true
+          vuln-type: 'os,library'
+          severity: 'CRITICAL,HIGH'
 
       - name: Run docker
         run: |
