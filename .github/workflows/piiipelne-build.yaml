@@ -51,5 +51,6 @@ jobs:
 
       - name: Build and run Docker containers
         run: |
-          docker build -t prueba .
+          docker build -f Dockerfile -t prueba .
           docker image ls
+          docker run -d -p 80:80 --name my-apache-php-app -v "$PWD":/var/www/html php:7.2-apache
