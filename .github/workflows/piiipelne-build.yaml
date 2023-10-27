@@ -56,7 +56,7 @@ jobs:
 
       - name: Trivy report
         run: |
-          trivy webgoat
+          trivy webgoat:latest
 
       - name: Run docker
         run: |
