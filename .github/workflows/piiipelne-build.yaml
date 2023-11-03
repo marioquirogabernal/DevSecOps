@@ -81,7 +81,6 @@ jobs:
 
       - name: "Cambiar IP"
         run: | 
-          chmod +x update_inventory.sh
           ./update_inventory.sh
 
       - name: "Correr Ansible"
