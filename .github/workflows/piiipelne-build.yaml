@@ -84,7 +84,14 @@ jobs:
           ./update_inventory.sh
 
       - name: "Correr Ansible"
-        run: sudo ansible-playbook -i inventario nginx.yml --become
+        env:
+          PRIVATE_KEY: ${{ secrets.MARIO_CLAVES }}
+        run: |
+          echo "$PRIVATE_KEY" >> $HOME/key.pem
+          sudo chmod 600 $HOME/key.pem
+          export ANSIBLE_HOST_KEY_CHECKING=False
+          sudo ansible-playbook -i inventario nginx.yml --become
+        continue-on-error: true
 
       - name: Run Arachni
         run: |
