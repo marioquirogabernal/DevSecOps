@@ -4,4 +4,4 @@
 my_ip=$(terraform output My_ip)
 
 # Realiza la sustitución en el archivo de inventario
-sed -i "s/my_ip/$my_ip/g" inventory.txt
+sed -i "s/my_ip/$my_ip/g" inventario
