@@ -96,10 +96,9 @@ jobs:
           PRIVATE_KEY: ${{ secrets.MARIO_CLAVES }}
         run: |
           sudo apt update
-          sudo apt install -y ansible 
-          mkdir -p $HOME/.ssh
-          echo "Host *" >> $HOME/.ssh/config
-          echo "StrictHostKeyChecking no" >> $HOME/.ssh/config
+          sudo apt install ansible -y
+          pip3 install "ansible-lint"
+          cat inventario
           echo "$PRIVATE_KEY" >> $HOME/key.pem
           sudo chmod 600 $HOME/key.pem
           export ANSIBLE_HOST_KEY_CHECKING=False
