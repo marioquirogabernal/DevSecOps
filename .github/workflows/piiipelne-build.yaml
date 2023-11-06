@@ -96,7 +96,7 @@ jobs:
           PRIVATE_KEY: ${{ secrets.MARIO_CLAVES }}
         run: |
           sudo apt update
-          sudo apt install -y ansble 
+          sudo apt install -y ansible 
           echo "$PRIVATE_KEY" >> $HOME/key.pem
           sudo chmod 600 $HOME/key.pem
           export ANSIBLE_HOST_KEY_CHECKING=False
@@ -131,7 +131,7 @@ jobs:
           ./arachni-1.6.1.3-0.6.1.1/bin/arachni --check=* http://$ARACHNI_IP:8080/WebGoat/login
 
       - name: Upload CodeQL SARIF report
-        uses: github/codeql-action/upload-sarif@v1
+        uses: github/codeql-action/upload-sarif@v2
         with:
           sarif_file: ${{ steps.codeql.outputs.sarif_file }}
 
