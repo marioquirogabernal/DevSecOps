@@ -97,10 +97,13 @@ jobs:
         run: |
           sudo apt update
           sudo apt install -y ansible 
-          echo "$PRIVATE_KEY" >> key.pem
-          sudo chmod 600 key.pem
+          mkdir -p $HOME/.ssh
+          echo "Host *" >> $HOME/.ssh/config
+          echo "StrictHostKeyChecking no" >> $HOME/.ssh/config
+          echo "$PRIVATE_KEY" >> $HOME/key.pem
+          sudo chmod 600 $HOME/key.pem
           export ANSIBLE_HOST_KEY_CHECKING=False
-          sudo ansible-playbook -i inventario nginx.yml --become --private-key key.pem
+          sudo ansible-playbook -i inventario nginx.yml --become --private-key $HOME/key.pem
           sleep 45
         continue-on-error: true
 
