@@ -37,7 +37,7 @@ jobs:
         with:
           project: 'WebGoat'
           path: '.'
-          format: 'SERIF'
+          format: 'SARIF'
           out: 'reports'
       
       - name: Upload Test Results
