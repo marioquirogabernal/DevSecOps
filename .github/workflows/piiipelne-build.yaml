@@ -72,7 +72,7 @@ jobs:
         with:
           output_format: cli,sarif
           output_file_path: console,result.sarif
-          directory: Terraform
+          directory: HOME
           framework: terraform
           soft_fail: true
           
@@ -103,7 +103,7 @@ jobs:
           echo "$PRIVATE_KEY" >> $HOME/key.pem
           sudo chmod 600 $HOME/key.pem
           export ANSIBLE_HOST_KEY_CHECKING=False
-          sudo ansible-playbook -i inventario nginx.yml --become --private-key $HOME/key.pem
+          sudo ansible-playbook -i inventario nginx.yml --user ubuntu --become --private-key $HOME/key.pem
           sleep 45
         continue-on-error: true
 
