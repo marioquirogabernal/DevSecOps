@@ -47,19 +47,6 @@ jobs:
         run: |
           docker build -t mario-repositorio .
 
-      - name: "Configurar credenciales de AWS"
-        uses: aws-actions/configure-aws-credentials@v1
-        with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: ${{ secrets.AWS_REGION }}
-
-      - name: "Cargar imagen a ECR"
-        run: |
-          aws ecr-public get-login-password --region us-east-1 | docker login --username AWS --password-stdin public.ecr.aws/n3j7o1e0
-          docker tag mario-repositorio:latest public.ecr.aws/n3j7o1e0/mario-repositorio:latest
-          docker push public.ecr.aws/n3j7o1e0/mario-repositorio:lat
-
       - name: Install Trivy
         run: |
           wget https://github.com/aquasecurity/trivy/releases/download/v0.18.3/trivy_0.18.3_Linux-64bit.deb
