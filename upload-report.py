@@ -3,9 +3,9 @@ import json
 import argparse
 
 url_api = "http://18.218.244.166:8080/api/v2/{method}"
-api_key = "Token edaf1740e048924e2f817fb6436a803b690c6900"
 
-def upload (file_report,scan_type):
+def upload (file_report,scan_type,api_key_secret):
+    api_key = api_key_secret
     headers = {
         'accept': 'application/json',
         'Authorization': api_key
@@ -35,7 +35,8 @@ if __name__== '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('--file','-f', dest='file', help='Nombre del reporte', required=True )
     parser.add_argument('--type-scan','-t', dest='type_scan', help='Nombre del scaner', required=True )
+    parser.add_argument('--api-key','-l', dest='api_key_secrets', help='Secreto', required=True )
 
     args = parser.parse_args()
 
-    upload(args.file, args.type_scan)
+    upload(args.file, args.type_scan, args.api_key_secret)

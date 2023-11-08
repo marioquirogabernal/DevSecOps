@@ -57,6 +57,8 @@ jobs:
          trivy image -f json -o mariorepositorio.json  mario-repositorio
 
       - name: "Cargar reportes automatizados"
+        env:
+          API_KEY: ${{ secrets.API_KEY }}
         run: |
-          python3 upload-report.py -f ${{github.workspace}}/reports/dependency-check-report.xml -t "Dependency Check Scan"
-          python3 upload-report.py -f mariorepositorio.json -t "Trivy Scan"
+          python3 upload-report.py -f ${{github.workspace}}/reports/dependency-check-report.xml -t "Dependency Check Scan" -l $API_KEY
+          python3 upload-report.py -f mariorepositorio.json -t "Trivy Scan" -l $API_KEY
