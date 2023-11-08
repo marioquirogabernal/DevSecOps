@@ -35,7 +35,7 @@ if __name__== '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('--file','-f', dest='file', help='Nombre del reporte', required=True )
     parser.add_argument('--type-scan','-t', dest='type_scan', help='Nombre del scaner', required=True )
-    parser.add_argument('--api-key','-l', dest='api_key_secrets', help='Secreto', required=True )
+    parser.add_argument('--api-key','-l', dest='api_key_secret', help='Secreto', required=True )
 
     args = parser.parse_args()
 
